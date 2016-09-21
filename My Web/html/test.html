@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+         #lunbo_show{
+             width: 144px;
+             height: 96px;
+             position: relative;
+         }
+        #lunbo_inner{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="lunbo_show">
+    <div id="lunbo_inner">
+        <img src="../img/267312678950.png" alt=""/>
+        <img src="../img/267313852139.jpg" alt=""/>
+        <!--<img src="../img/fec50e28f71acc076fa894cf20fd3a7c1473301163.jpg" alt=""/>-->
+    </div>
+    <div id="lunbo_span">
+        <span class="select">1</span>
+        <span>2</span>
+        <!--<span>3</span>-->
+    </div>
+    <div  id="lunbo_left"> <span> < </span></div>
+    <div  id="lunbo_right"><span> > </span></div>
+</div>
+</body>
+
+
+<script>
+
+    var clickFlag = true;
+    var time;
+    var index = 0;
+    var Distance = show.offsetWidth;
+
+
+    function AutoGo(){
+        var start = div.offsetLeft;
+        var end = index*Distance*(-1);
+        var change = end - start;
+
+        var timer;
+        var t = 0;
+        var maxT = 20;
+//        clear();
+//        if(index==span.length){
+//            span[0].className = 'select';
+//
+//        }else{
+//            span[index].className = 'select';
+//        }
+
+
+        timer = setInterval(function(){
+            t++;
+            if(t >= maxT){
+                clearInterval(timer);
+                clickFlag = true;
+
+            }
+            div.style.left = change/maxT*t+start+'px';
+            if(index == span.length&&t>=maxT){
+                div.style.left = 0;
+                index = 0;
+            }
+
+        },17);
+
+
+    }
+    time = setInterval(forward,1500);
+    function forward(){
+        index++;
+        if(index > span.length){
+            index = 0;
+        }
+        AutoGo();
+    }
+    function backward(){
+        index--;
+        if(index < 0){
+            index = span.length-1;
+            div.style.left = (index+1)*Distance*(-1)+'px';
+        }
+        AutoGo();
+    }
+
+    show.onmouseover = function() {
+        clearInterval(time);
+    }
+    show.onmouseout = function(){
+        time = setInterval(forward,3000);
+    }
+    left.onclick = function(){
+        if(clickFlag){
+            backward();
+        }
+        clickFlag = false;
+    }
+    right.onclick = function(){
+        if(clickFlag){
+            forward();
+        }
+        clickFlag = false;
+    }
+
+
+</script>
+</html>
